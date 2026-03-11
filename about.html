@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Custom Design Systems</title>
+<meta name="description" content="Learn about Custom Design Systems — remote tech support, custom PC builds, and repair services.">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-hero {
+    padding-top: calc(80px + var(--space-16));
+    padding-bottom: var(--space-16);
+    padding-inline: var(--space-8);
+    background:
+      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(0,255,100,0.04) 0%, transparent 70%),
+      #050505;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,100,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,100,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 20% 50%, black 20%, transparent 80%);
+  }
+  .page-hero-content { position: relative; z-index: 1; }
+  .page-title {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    color: var(--color-text);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: var(--space-4);
+  }
+  .page-title span { color: var(--color-primary); }
+
+  /* About split */
+  .about-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .about-split { grid-template-columns: 1fr; }
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-wrap img {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(0,255,100,0.2);
+    box-shadow: 0 0 60px rgba(0,255,100,0.1);
+  }
+  .about-img-overlay {
+    position: absolute;
+    bottom: var(--space-6);
+    right: calc(-1 * var(--space-6));
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border-glow);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-6);
+    box-shadow: var(--shadow-card);
+  }
+  @media (max-width: 768px) {
+    .about-img-overlay { right: var(--space-4); }
+  }
+  .about-overlay-label { font-size: var(--text-xs); color: var(--color-text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .about-overlay-value { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 900; color: var(--color-gold); }
+
+  .about-body p { color: var(--color-text-muted); font-size: var(--text-base); line-height: 1.8; margin-bottom: var(--space-4); }
+  .about-body p strong { color: var(--color-text); }
+
+  /* Skills */
+  .skill-bar-wrap { margin-bottom: var(--space-4); }
+  .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: var(--space-2); }
+  .skill-bar-name { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+  .skill-bar-pct  { font-size: var(--text-xs); color: var(--color-primary); font-weight: 700; }
+  .skill-bar-track { height: 4px; background: var(--color-border); border-radius: 9999px; overflow: hidden; }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-gold));
+    box-shadow: 0 0 8px rgba(0,255,100,0.4);
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* Values */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+  .value-card {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .value-card:hover {
+    border-color: var(--color-border-glow);
+    box-shadow: 0 0 20px rgba(0,255,100,0.08);
+  }
+  .value-icon { font-size: 2.2rem; margin-bottom: var(--space-3); }
+  .value-title { font-family: var(--font-display); font-size: var(--text-base); font-weight: 800; color: var(--color-text); margin-bottom: var(--space-2); }
+  .value-text { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: var(--space-8); }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--color-primary), var(--color-gold), transparent);
+  }
+  .timeline-item { position: relative; padding-bottom: var(--space-8); }
+  .timeline-dot {
+    position: absolute;
+    left: calc(-1 * var(--space-8) + 4px);
+    top: 4px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 8px rgba(0,255,100,0.6);
+  }
+  .timeline-year { font-size: var(--text-xs); color: var(--color-primary); font-weight: 700; letter-spacing: 0.1em; margin-bottom: var(--space-1); }
+  .timeline-event { font-family: var(--font-display); font-size: var(--text-base); font-weight: 800; color: var(--color-text); margin-bottom: var(--space-1); }
+  .timeline-desc { font-size: var(--text-sm); color: var(--color-text-muted); }
+</style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION LOADER -->
+<div id="page-loader">
+  <video id="loader-video" src="assets/Green-Hornet-Wings.mp4" muted playsinline></video>
+  <div id="loader-text">Loading...</div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/Green-Hornet-Warrior.jpg" alt="CDS Logo">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Custom Design Systems</span>
+      <span class="nav-logo-tagline">Tech Support · Builds · Repair</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="services.html#invoice" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="container page-hero-content">
+    <div class="section-label">Our Story</div>
+    <h1 class="page-title">About <span>Custom Design</span><br>Systems</h1>
+    <p style="color: var(--color-text-muted); font-size: var(--text-base); max-width: 55ch;">
+      Built on real expertise, not just credentials. We solve tech problems the right way — fast, honest, and without the runaround.
+    </p>
+  </div>
+</div>
+
+<!-- ABOUT SPLIT -->
+<section class="section">
+  <div class="container">
+    <div class="about-split">
+      <div class="about-img-wrap fade-in">
+        <img src="assets/Green-Hornet-Warrior.jpg" alt="Custom Design Systems">
+        <div class="about-img-overlay">
+          <div class="about-overlay-label">Est.</div>
+          <div class="about-overlay-value">Custom Design Systems LLC</div>
+        </div>
+      </div>
+      <div class="about-body fade-in">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">Tech Done <span>Right</span></h2>
+        <div class="glow-line"></div>
+        <p>Custom Design Systems is a registered LLC providing <strong>remote tech support, custom PC builds, and computer repair</strong> for individuals and small businesses.</p>
+        <p>We started because getting quality tech help shouldn't mean waiting on hold, paying dealership prices, or explaining your problem to someone who clearly doesn't care. <strong>We do.</strong></p>
+        <p>Every job gets a professional invoice, a real service agreement, and a technician who actually knows what they're doing — on Windows and Mac.</p>
+        <div style="display:flex; gap: var(--space-4); margin-top: var(--space-6); flex-wrap: wrap;">
+          <span class="badge badge-green">Registered LLC</span>
+          <span class="badge badge-gold">Windows & Mac</span>
+          <span class="badge badge-green">Remote & On-Site</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" style="background: var(--color-surface);">
+  <div class="container-default">
+    <div class="section-label">Technical Expertise</div>
+    <h2 class="section-title">Skills &amp; <span>Capabilities</span></h2>
+    <div class="glow-line"></div>
+    <div class="grid-2" style="gap: var(--space-10);">
+      <div class="fade-in">
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Windows Troubleshooting</span><span class="skill-bar-pct">95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">macOS Support</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Custom PC Builds</span><span class="skill-bar-pct">97%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="97"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Hardware Repair</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Networking & Wi-Fi</span><span class="skill-bar-pct">85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Virus & Malware Removal</span><span class="skill-bar-pct">98%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="98"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Data Recovery</span><span class="skill-bar-pct">80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span class="skill-bar-name">Remote Support Tools</span><span class="skill-bar-pct">99%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="99"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">What We Stand For</div>
+    <h2 class="section-title">Our <span class="gold">Values</span></h2>
+    <div class="glow-line" style="background: linear-gradient(90deg, var(--color-gold), transparent);"></div>
+    <div class="values-grid">
+      <div class="value-card fade-in">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Speed</div>
+        <p class="value-text">Your time is valuable. We move fast without cutting corners.</p>
+      </div>
+      <div class="value-card fade-in">
+        <div class="value-icon">🔍</div>
+        <div class="value-title">Transparency</div>
+        <p class="value-text">Clear pricing, itemized invoices, no surprises. Ever.</p>
+      </div>
+      <div class="value-card fade-in">
+        <div class="value-icon">🛡️</div>
+        <div class="value-title">Integrity</div>
+        <p class="value-text">We don't recommend what you don't need. Honest assessments only.</p>
+      </div>
+      <div class="value-card fade-in">
+        <div class="value-icon">🏆</div>
+        <div class="value-title">Quality</div>
+        <p class="value-text">Every build and repair meets a high standard before it leaves our hands.</p>
+      </div>
+      <div class="value-card fade-in">
+        <div class="value-icon">📞</div>
+        <div class="value-title">Availability</div>
+        <p class="value-text">Remote support means we can help you wherever you are.</p>
+      </div>
+      <div class="value-card fade-in">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Accountability</div>
+        <p class="value-text">Licensed LLC. Every job comes with a service agreement and warranty on labor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" style="background: var(--color-surface);">
+  <div class="container-default">
+    <div class="section-label">Our Journey</div>
+    <h2 class="section-title">The <span>Story So Far</span></h2>
+    <div class="glow-line"></div>
+    <div class="timeline fade-in">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Founded</div>
+        <div class="timeline-event">Custom Design Systems LLC Registered</div>
+        <p class="timeline-desc">Officially registered as an LLC, business bank account opened, ready to serve clients.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background: var(--color-gold); box-shadow: 0 0 8px rgba(201,168,76,0.6);"></div>
+        <div class="timeline-year" style="color: var(--color-gold);">Growing</div>
+        <div class="timeline-event">Remote Support Services Launched</div>
+        <p class="timeline-desc">Expanded to remote tech support across Windows and Mac platforms using professional-grade tools.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Now</div>
+        <div class="timeline-event">Custom Builds & Repair — Full Service</div>
+        <p class="timeline-desc">Full-service operation: remote support, custom PC builds with Amazon-sourced parts, on-site repair, and travel service.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background: var(--color-gold); box-shadow: 0 0 8px rgba(201,168,76,0.6);"></div>
+        <div class="timeline-year" style="color: var(--color-gold);">Coming</div>
+        <div class="timeline-event">Full-Time Operations</div>
+        <p class="timeline-desc">Building toward a thriving full-time operation with expanded clientele and service offerings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="section-label">Work With Us</div>
+  <h2 class="section-title">Ready to Get <span>Started?</span></h2>
+  <p>Get in touch for a free consultation or submit a service request — we respond within 24 hours.</p>
+  <div class="cta-actions">
+    <a href="services.html#invoice" class="btn-primary">Request Service</a>
+    <a href="services.html" class="btn-outline">View Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo-name">Custom Design Systems</div>
+  <p style="margin-bottom: var(--space-4);">Remote Tech Support &nbsp;·&nbsp; Custom PC Builds &nbsp;·&nbsp; Computer Repair</p>
+  <p style="margin-bottom: var(--space-6);">
+    <a href="services.html">Services</a> &nbsp;·&nbsp;
+    <a href="about.html">About</a> &nbsp;·&nbsp;
+    <a href="shop.html">Shop</a> &nbsp;·&nbsp;
+    <a href="services.html#invoice">Get a Quote</a>
+  </p>
+  <p style="font-size: var(--text-xs); color: var(--color-text-faint);">
+    &copy; 2026 Custom Design Systems LLC &nbsp;·&nbsp;
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" style="color: var(--color-text-faint);">Created with Perplexity Computer</a>
+  </p>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40));
+  document.getElementById('hamburger').addEventListener('click', () =>
+    document.getElementById('nav-links').classList.toggle('open'));
+
+  // Animate skill bars on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Page transition
+  const loader = document.getElementById('page-loader');
+  const loaderVideo = document.getElementById('loader-video');
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('#') && !href.startsWith('http') && href.endsWith('.html')) {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        loader.classList.add('active');
+        loaderVideo.play();
+        setTimeout(() => { window.location.href = href; }, 900);
+      });
+    }
+  });
+</script>
+</body>
+</html>
