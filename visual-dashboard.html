@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Dashboard — Shortcuts & GitHub Workflow</title>
+    <style>
+        :root {
+            --hornet-bg: #0f1d15;
+            --hornet-surface: #1a2f22;
+            --hornet-dark: #2d4a35;
+            --hornet-green: #39d65f;
+            --hornet-bright: #4eff6f;
+            --hornet-neon: #00ff99;
+            --hornet-gold: #d4af37;
+            --hornet-text: #e8f0eb;
+            --hornet-text-dim: #a8b8ae;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--hornet-bg);
+            color: var(--hornet-text);
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: var(--hornet-neon);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 153, 0.3);
+        }
+
+        .header p {
+            color: var(--hornet-text-dim);
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: var(--hornet-neon);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--hornet-neon);
+            padding-left: 12px;
+        }
+
+        /* Keyboard Shortcuts Grid */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .shortcut-card {
+            background: var(--hornet-surface);
+            border: 2px solid var(--hornet-dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .shortcut-card:hover {
+            border-color: var(--hornet-bright);
+            box-shadow: 0 0 15px rgba(78, 255, 111, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .shortcut-category {
+            font-size: 14px;
+            color: var(--hornet-neon);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .shortcut-item {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--hornet-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-key {
+            background: var(--hornet-dark);
+            color: var(--hornet-neon);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 11px;
+            margin-right: 8px;
+        }
+
+        .shortcut-label {
+            color: var(--hornet-text-dim);
+            flex: 1;
+        }
+
+        /* GitHub Workflow */
+        .workflow-container {
+            background: var(--hornet-surface);
+            border: 2px solid var(--hornet-dark);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .workflow-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--hornet-neon);
+            color: var(--hornet-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0 auto 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--hornet-text);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .step-description {
+            font-size: 12px;
+            color: var(--hornet-text-dim);
+            line-height: 1.5;
+        }
+
+        .arrow {
+            color: var(--hornet-neon);
+            font-size: 24px;
+            margin: 0 8px;
+        }
+
+        .step-code {
+            background: #0a0f0c;
+            border: 1px solid var(--hornet-dark);
+            padding: 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--hornet-neon);
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 20px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 60px;
+            top: 60px;
+            width: 2px;
+            height: calc(100% + 2rem);
+            background: var(--hornet-dark);
+        }
+
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background: var(--hornet-neon);
+            border-radius: 50%;
+            margin-top: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 153, 0.4);
+        }
+
+        .timeline-content {
+            background: var(--hornet-surface);
+            border: 1px solid var(--hornet-dark);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+
+        .timeline-frequency {
+            font-size: 12px;
+            color: var(--hornet-neon);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-details {
+            font-size: 13px;
+            color: var(--hornet-text-dim);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        /* Comparison */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-card {
+            background: var(--hornet-surface);
+            border: 2px solid var(--hornet-dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .comparison-card h3 {
+            color: var(--hornet-neon);
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .comparison-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--hornet-text-dim);
+        }
+
+        .checkmark {
+            color: var(--hornet-bright);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Charts */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .stat-box {
+            background: var(--hornet-surface);
+            border: 1px solid var(--hornet-dark);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--hornet-neon);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--hornet-text-dim);
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .arrow {
+                display: none;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item::after {
+                display: none;
+            }
+
+            .timeline-marker {
+                margin-left: 0;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎮 Visual Dashboard</h1>
+        <p>Keyboard Shortcuts, GitHub Workflow & Maintenance Timeline</p>
+    </div>
+
+    <div class="container">
+        <!-- Keyboard Shortcuts -->
+        <div class="section">
+            <div class="section-title">⌨️ Keyboard Shortcuts (47 Total Hotkeys!)</div>
+            <div class="shortcuts-grid">
+                <div class="shortcut-card">
+                    <div class="shortcut-category">Windows Keyboard</div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Win+D</span>
+                        <span class="shortcut-label">Show desktop</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Win+V</span>
+                        <span class="shortcut-label">Clipboard history</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Win+Shift+S</span>
+                        <span class="shortcut-label">Screenshot tool</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Win+X</span>
+                        <span class="shortcut-label">Quick menu</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Alt+Tab</span>
+                        <span class="shortcut-label">Switch windows</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Ctrl+Shift+Esc</span>
+                        <span class="shortcut-label">Task Manager</span>
+                    </div>
+                </div>
+
+                <div class="shortcut-card">
+                    <div class="shortcut-category">Gaming & Performance</div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">F11</span>
+                        <span class="shortcut-label">Full screen</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Win+G</span>
+                        <span class="shortcut-label">Game Bar</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Alt+Enter</span>
+                        <span class="shortcut-label">Borderless mode</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Ctrl+Alt+F</span>
+                        <span class="shortcut-label">FPS counter</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Printscreen</span>
+                        <span class="shortcut-label">Screenshot</span>
+                    </div>
+                </div>
+
+                <div class="shortcut-card">
+                    <div class="shortcut-category">Browser & Discord</div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Ctrl+T</span>
+                        <span class="shortcut-label">New tab</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">F12</span>
+                        <span class="shortcut-label">DevTools</span>
+                    </div>
+                    <div class="shortcut-key">Ctrl+Shift+Delete</span>
+                        <span class="shortcut-label">Clear data</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Ctrl+K</span>
+                        <span class="shortcut-label">Discord switch</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">/</span>
+                        <span class="shortcut-label">Slash commands</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GitHub Workflow -->
+        <div class="section">
+            <div class="section-title">🔄 GitHub Maintenance Workflow</div>
+            
+            <div class="workflow-container">
+                <div style="margin-bottom: 2rem;">
+                    <div class="section-title" style="font-size: 16px; border: none; padding: 0; margin: 0 0 1.5rem 0;">Step-by-Step Process</div>
+                </div>
+
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Edit Files</div>
+                        <div class="step-description">Make changes to HTML, JSON, or other files locally</div>
+                        <div class="step-code">nano inventory-config.json</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div style="text-align: center; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="arrow">→</div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Stage Changes</div>
+                        <div class="step-description">Tell Git which files to include</div>
+                        <div class="step-code">git add inventory-config.json</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div style="text-align: center; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="arrow">→</div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Commit</div>
+                        <div class="step-description">Save changes with a clear message</div>
+                        <div class="step-code">git commit -m "Q2 update"</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div style="text-align: center; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="arrow">→</div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Push</div>
+                        <div class="step-description">Upload to GitHub & go live!</div>
+                        <div class="step-code">git push</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div style="text-align: center; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="arrow">→</div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Test</div>
+                        <div class="step-description">Hard refresh & verify changes</div>
+                        <div class="step-code">Ctrl+Shift+R</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maintenance Timeline -->
+        <div class="section">
+            <div class="section-title">📅 Maintenance Schedule</div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-marker"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-frequency">Weekly (5 min)</div>
+                        <div class="timeline-title">Quick Check</div>
+                        <div class="timeline-details">
+                            ✓ Spot-check site works<br>
+                            ✓ Review any issues<br>
+                            ✓ Check for broken links
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-marker"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-frequency">Monthly (5 min)</div>
+                        <div class="timeline-title">Add Training Tip</div>
+                        <div class="timeline-details">
+                            ✓ Add 1 new training tip<br>
+                            ✓ Review tips for accuracy<br>
+                            ✓ Commit & push
+                        </div>
+                        <div class="step-code">git add training-tips.html<br>git commit -m "New tip"<br>git push</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-marker"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-frequency">Quarterly (30 min)</div>
+                        <div class="timeline-title">Update Inventory</div>
+                        <div class="timeline-details">
+                            ✓ Update product prices<br>
+                            ✓ Add new products<br>
+                            ✓ Mark in/out of stock<br>
+                            ✓ Test thoroughly<br>
+                            ✓ Commit & push
+                        </div>
+                        <div class="step-code">git add inventory-config.json shop.html<br>git commit -m "Q2 inventory"<br>git push</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-marker"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-frequency">Annually (1 hour)</div>
+                        <div class="timeline-title">Full Audit</div>
+                        <div class="timeline-details">
+                            ✓ Review all tips<br>
+                            ✓ Update outdated content<br>
+                            ✓ Performance check<br>
+                            ✓ Plan next year
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="section">
+            <div class="section-title">📊 Your System Stats</div>
+            
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="stat-number">17</div>
+                    <div class="stat-label">Training Tips</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Keyboard Hotkeys</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">26</div>
+                    <div class="stat-label">Shop Products</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Difficulty Levels</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$0</div>
+                    <div class="stat-label">Hosting Cost</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Commands -->
+        <div class="section">
+            <div class="section-title">⚡ Copy-Paste Commands</div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Add Training Tip</h3>
+                    <div class="step-code" style="margin: 0; text-align: left;">git add training-tips.html<br>git commit -m "New tip"<br>git push</div>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Update Shop</h3>
+                    <div class="step-code" style="margin: 0; text-align: left;">git add inventory-config.json<br>git add shop.html<br>git commit -m "Q2 update"<br>git push</div>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Check Status</h3>
+                    <div class="step-code" style="margin: 0; text-align: left;">git status<br>git diff<br>git log</div>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Undo Mistake</h3>
+                    <div class="step-code" style="margin: 0; text-align: left;">git revert HEAD<br>git push<br># Then fix & re-push</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Checklist -->
+        <div class="section">
+            <div class="section-title">✅ Success Checklist</div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Before Pushing</h3>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Test locally in browser</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Check JSON syntax</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Review changes</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Clear commit message</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>After Pushing</h3>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Hard refresh live site</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Click all buttons/links</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Test on mobile</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Check console for errors</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>Your System</h3>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Production ready</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Fully documented</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Easy to maintain</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="checkmark">✓</span>
+                        <span>Ready to scale</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

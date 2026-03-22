@@ -19,7 +19,13 @@
     { "id": 15, "name": "Corsair RM850x 850W", "category": "power", "amazon": "Corsair RM850x 850W", "desc": "Fully modular. Rock-solid reliability." },
     { "id": 16, "name": "Seasonic Focus GX-1000W", "category": "power", "amazon": "Seasonic Focus GX 1000W", "desc": "1000W for high-end builds." },
     { "id": 17, "name": "LG 27GP850-B 27\" 1440p", "category": "monitor", "amazon": "LG 27GP850-B", "desc": "165Hz IPS. Excellent for gaming." },
-    { "id": 18, "name": "MSI MAG 27\" 1440p 180Hz", "category": "monitor", "amazon": "MSI MAG 27\" 1440p 180Hz", "desc": "Fast IPS, 180Hz. Great gaming monitor." }
+    { "id": 18, "name": "MSI MAG 27\" 1440p 180Hz", "category": "monitor", "amazon": "MSI MAG 27\" 1440p 180Hz", "desc": "Fast IPS, 180Hz. Great gaming monitor." },
+    { "id": 19, "name": "Logitech MX Keys S", "category": "keyboard", "amazon": "Logitech MX Keys S", "desc": "Premium wireless keyboard. Backlit, multi-device." },
+    { "id": 20, "name": "Corsair K100 RGB", "category": "keyboard", "amazon": "Corsair K100 RGB", "desc": "Mechanical gaming keyboard with custom switches." },
+    { "id": 21, "name": "SteelSeries Apex Pro", "category": "keyboard", "amazon": "SteelSeries Apex Pro", "desc": "Adjustable mechanical switches, OLED display." },
+    { "id": 22, "name": "Logitech G502 X Plus", "category": "mouse", "amazon": "Logitech G502 X Plus", "desc": "HERO 25K sensor, wireless, 13 programmable buttons." },
+    { "id": 23, "name": "SteelSeries Rival 5", "category": "mouse", "amazon": "SteelSeries Rival 5", "desc": "18,000 CPI sensor, lightweight, gaming optimized." },
+    { "id": 24, "name": "Corsair Nightsword RGB", "category": "mouse", "amazon": "Corsair Nightsword RGB", "desc": "18,000 DPI sensor, adjustable weight, ergonomic." }
   ],
   "variants": [
     { "id": 1, "productId": 1, "season": "Q1 2026", "price": "~$199", "gen": "7600X", "badge": "Best Value", "inShop": true },
@@ -39,6 +45,12 @@
     { "id": 15, "productId": 15, "season": "Q1 2026", "price": "~$139", "gen": "850W", "badge": "Best Value", "inShop": true },
     { "id": 16, "productId": 16, "season": "Q1 2026", "price": "~$179", "gen": "1000W", "badge": "", "inShop": false },
     { "id": 17, "productId": 17, "season": "Q1 2026", "price": "~$299", "gen": "27\" 1440p 165Hz", "badge": "Top Pick", "inShop": true },
-    { "id": 18, "productId": 18, "season": "Q1 2026", "price": "~$349", "gen": "27\" 1440p 180Hz", "badge": "Best Value", "inShop": true }
+    { "id": 18, "productId": 18, "season": "Q1 2026", "price": "~$349", "gen": "27\" 1440p 180Hz", "badge": "Best Value", "inShop": true },
+    { "id": 19, "productId": 19, "season": "Q1 2026", "price": "~$109", "gen": "Wireless", "badge": "", "inShop": true },
+    { "id": 20, "productId": 20, "season": "Q1 2026", "price": "~$249", "gen": "RGB Mechanical", "badge": "Top Pick", "inShop": true },
+    { "id": 21, "productId": 21, "season": "Q1 2026", "price": "~$199", "gen": "Adjustable Switches", "badge": "", "inShop": false },
+    { "id": 22, "productId": 22, "season": "Q1 2026", "price": "~$129", "gen": "25K Sensor", "badge": "Best Value", "inShop": true },
+    { "id": 23, "productId": 23, "season": "Q1 2026", "price": "~$99", "gen": "18K CPI", "badge": "", "inShop": true },
+    { "id": 24, "productId": 24, "season": "Q1 2026", "price": "~$139", "gen": "Adjustable Weight", "badge": "", "inShop": false }
   ]
 }
