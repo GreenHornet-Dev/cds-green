@@ -511,9 +511,17 @@
         &copy; 2026 Custom Design Systems LLC &nbsp;&nbsp;
         <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" style="color: var(--color-text-faint);">Created with Perplexity Computer</a>
     </p>// Entrance screen
-  const entrance = document.getElementById('entrance');
-  entrance.addEventListener('click', () => entrance.classList.add('hidden'));
-  setTimeout(() => entrance.classList.add('hidden'), 8000);
+// Entrance screen — fixed
+    const entrance = document.getElementById('entrance');
+    let introDone = false;
+    function finishIntro() {
+      if (introDone) return;
+      introDone = true;
+      entrance.classList.add('hidden');
+      window.location.href = 'services.html';
+    }
+    entrance.addEventListener('click', finishIntro);
+    setTimeout(finishIntro, 8000);
 
   // Navbar scroll
   const navbar = document.getElementById('navbar');
@@ -531,7 +539,7 @@
   const loaderVideo = document.getElementById('loader-video');
   document.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
-    if (!href.startsWith('#') && !href.startsWith('http') && href.endsWith('.html')) {
+            if (!href.startsWith('#') && href.endsWith('.html')) {
       link.addEventListener('click', e => {
         e.preventDefault();
         loader.classList.add('active');
@@ -540,6 +548,11 @@
       });
     }
   });
+       // Clear loader on every page load
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+      if (loader) loader.classList.remove('active');
+    });
 </script>
 </body>
 </html>
