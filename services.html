@@ -434,6 +434,127 @@
     <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-4);">Custom PC builds require 50% deposit before parts are ordered. Remote support billed after session. Repair billed upon completion.</p>
   </div>
 </section>
+   
+    <!-- ── SUPPORT & DRIVER RESOURCES ── -->
+    <section class="section" id="support-links">
+      <div class="container">
+        <div class="section-label">Quick Access</div>
+        <h2 class="section-title">Support &amp; <span>Driver Resources</span></h2>
+        <p style="color:var(--color-text-muted);margin-bottom:var(--space-8);max-width:60ch;">Direct links to manufacturer support portals, driver downloads, and update tools. Click any card to open in a new tab.</p>
+
+        <!-- Built-in links grid -->
+        <div id="support-grid" class="support-grid"></div>
+
+        <!-- Add custom link -->
+        <div class="support-add-card">
+          <div class="support-add-title">&#43; Add a Custom Support Link</div>
+          <p class="support-add-sub">Save your own frequently used support sites. Stored locally in your browser.</p>
+          <div class="support-add-form">
+            <div class="support-field">
+              <label for="sl-name">Site Name</label>
+              <input type="text" id="sl-name" placeholder="e.g. ASUS Support" maxlength="40" />
+            </div>
+            <div class="support-field">
+              <label for="sl-url">URL</label>
+              <input type="url" id="sl-url" placeholder="https://" maxlength="200" />
+            </div>
+            <div class="support-field">
+              <label for="sl-icon">Icon (emoji)</label>
+              <input type="text" id="sl-icon" placeholder="&#128279;" maxlength="4" />
+            </div>
+            <button class="btn-primary" id="sl-add-btn" style="align-self:flex-end;white-space:nowrap;">Add Link</button>
+          </div>
+          <div id="sl-error" style="color:#ff3b3b;font-size:var(--text-xs);margin-top:var(--space-2);display:none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      /* Support Links Section */
+      .support-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: var(--space-4);
+        margin-bottom: var(--space-10);
+      }
+      .support-card {
+        position: relative;
+        background: var(--color-surface-2);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-5) var(--space-6);
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        cursor: pointer;
+      }
+      .support-card:hover {
+        border-color: var(--color-border-glow);
+        box-shadow: 0 0 20px rgba(0,255,100,0.12);
+        transform: translateY(-3px);
+      }
+      .support-card-icon { font-size: 1.8rem; line-height: 1; }
+      .support-card-name {
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        font-weight: 800;
+        color: var(--color-text);
+        line-height: 1.2;
+      }
+      .support-card-tag {
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        letter-spacing: 0.05em;
+      }
+      .support-card-custom .support-card-tag { color: var(--color-gold); }
+      .support-card-del {
+        position: absolute;
+        top: 6px; right: 8px;
+        background: none;
+        border: none;
+        color: var(--color-text-faint);
+        font-size: 1rem;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.15s, color 0.15s;
+        line-height: 1;
+        padding: 2px 4px;
+      }
+      .support-card:hover .support-card-del { opacity: 1; }
+      .support-card-del:hover { color: #ff3b3b !important; }
+      .support-add-card {
+        background: var(--color-surface-2);
+        border: 1px dashed var(--color-border-glow);
+        border-radius: var(--radius-lg);
+        padding: var(--space-8);
+        margin-top: var(--space-4);
+      }
+      .support-add-title {
+        font-family: var(--font-display);
+        font-size: var(--text-base);
+        font-weight: 800;
+        color: var(--color-primary);
+        margin-bottom: var(--space-2);
+      }
+      .support-add-sub {
+        font-size: var(--text-sm);
+        color: var(--color-text-muted);
+        margin-bottom: var(--space-5);
+      }
+      .support-add-form {
+        display: grid;
+        grid-template-columns: 2fr 3fr 1fr auto;
+        gap: var(--space-3);
+        align-items: flex-end;
+      }
+      .support-field { display: flex; flex-direction: column; gap: var(--space-2); }
+      @media (max-width: 768px) {
+        .support-add-form { grid-template-columns: 1fr 1fr; }
+        .support-add-form .btn-primary { grid-column: 1 / -1; }
+      }
+    </style>
 
 <footer>
     <div class="footer-logo-name">Custom Design Systems</div>
@@ -477,6 +598,86 @@
       });
     }
   });
+   
+    // ── SUPPORT LINKS ──
+    const BUILTIN_LINKS = [
+      { name: 'Dell Support',            url: 'https://www.dell.com/support/home/en-us',                      icon: '🖥️', tag: 'Dell' },
+      { name: 'HP Support',              url: 'https://support.hp.com/us-en',                                 icon: '🖥️', tag: 'HP' },
+      { name: 'Lenovo Support',          url: 'https://support.lenovo.com/us/en/',                            icon: '🖥️', tag: 'Lenovo' },
+      { name: 'ASUS Support',            url: 'https://www.asus.com/us/support/',                             icon: '🖥️', tag: 'ASUS' },
+      { name: 'Acer Support',            url: 'https://www.acer.com/us-en/support',                           icon: '🖥️', tag: 'Acer' },
+      { name: 'MSI Support',             url: 'https://www.msi.com/support/',                                 icon: '🎮', tag: 'MSI' },
+      { name: 'Gigabyte Support',        url: 'https://www.gigabyte.com/Support',                             icon: '🔧', tag: 'Gigabyte' },
+      { name: 'Intel Drivers',           url: 'https://www.intel.com/content/www/us/en/download-center/home.html', icon: '⚡', tag: 'Intel' },
+      { name: 'AMD Drivers',             url: 'https://www.amd.com/en/support',                               icon: '🔥', tag: 'AMD' },
+      { name: 'NVIDIA Drivers',          url: 'https://www.nvidia.com/Download/index.aspx',                   icon: '💻', tag: 'NVIDIA' },
+      { name: 'Windows Update Catalog',  url: 'https://www.catalog.update.microsoft.com/',                    icon: '🪟', tag: 'Microsoft' },
+      { name: 'Windows Update',          url: 'ms-settings:windowsupdate',                                    icon: '✅', tag: 'Microsoft' },
+      { name: 'Device Manager (run)',    url: 'https://support.microsoft.com/en-us/windows/open-device-manager-a7f2db46-faaf-24f0-8b7b-9e4a6032fc8c', icon: '⚙️', tag: 'Windows' },
+      { name: 'Drivers & Downloads Hub', url: 'https://driverscloud.com/',                                    icon: '☁️', tag: 'Multi' },
+      { name: 'Snappy Driver Installer', url: 'https://sdi-tool.org/',                                         icon: '📦', tag: 'Tool' },
+      { name: 'MacOS Updates',           url: 'https://support.apple.com/en-us/111900',                       icon: '🍎', tag: 'Apple' },
+    ];
+
+    const STORAGE_KEY = 'cds_custom_support_links';
+
+    function loadCustomLinks() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+      catch { return []; }
+    }
+
+    function saveCustomLinks(arr) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+
+    function renderSupportGrid() {
+      const custom = loadCustomLinks();
+      const all = [
+        ...BUILTIN_LINKS.map(l => ({ ...l, isCustom: false })),
+        ...custom.map(l => ({ ...l, isCustom: true }))
+      ];
+      const grid = document.getElementById('support-grid');
+      grid.innerHTML = all.map((link, idx) => `
+        <a href="${link.url}" target="_blank" rel="noopener noreferrer"
+           class="support-card${link.isCustom ? ' support-card-custom' : ''}">
+          <div class="support-card-icon">${link.icon || '🔗'}</div>
+          <div class="support-card-name">${link.name}</div>
+          <div class="support-card-tag">${link.isCustom ? '⭐ Custom' : link.tag}</div>
+          ${link.isCustom ? `<button class="support-card-del" data-idx="${idx - BUILTIN_LINKS.length}" title="Remove" onclick="removeCustomLink(event, ${idx - BUILTIN_LINKS.length})">&times;</button>` : ''}
+        </a>`).join('');
+    }
+
+    function removeCustomLink(e, idx) {
+      e.preventDefault();
+      e.stopPropagation();
+      const custom = loadCustomLinks();
+      custom.splice(idx, 1);
+      saveCustomLinks(custom);
+      renderSupportGrid();
+    }
+
+    document.getElementById('sl-add-btn').addEventListener('click', () => {
+      const name = document.getElementById('sl-name').value.trim();
+      const url  = document.getElementById('sl-url').value.trim();
+      const icon = document.getElementById('sl-icon').value.trim() || '🔗';
+      const err  = document.getElementById('sl-error');
+      err.style.display = 'none';
+      if (!name) { err.textContent = 'Please enter a site name.'; err.style.display = 'block'; return; }
+      if (!url || (!url.startsWith('http://') && !url.startsWith('https://'))) {
+        err.textContent = 'Please enter a valid URL starting with https://';
+        err.style.display = 'block'; return;
+      }
+      const custom = loadCustomLinks();
+      custom.push({ name, url, icon, tag: 'Custom' });
+      saveCustomLinks(custom);
+      document.getElementById('sl-name').value = '';
+      document.getElementById('sl-url').value = '';
+      document.getElementById('sl-icon').value = '';
+      renderSupportGrid();
+      document.getElementById('support-links').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    renderSupportGrid();
 </script>
 </body>
 </html>
