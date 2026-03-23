@@ -23,12 +23,18 @@
         .filter-btn { padding: 8px 16px; background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text-muted); border-radius: var(--radius-md); cursor: pointer; font-size: var(--text-xs); font-weight: 600; transition: all 0.2s; }
         .filter-btn.active { background: var(--color-primary); color: #000; border-color: var(--color-primary); }
         .youtube-section { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-10); text-align: center; margin-bottom: var(--space-16); }
+        
+        /* Stats Styles */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 2rem 0 3rem; }
+        .stat-card { background: var(--color-surface-2); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center; }
+        .stat-number { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: var(--color-primary); margin-bottom: 0.5rem; }
+        .stat-label { font-size: 11px; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div id="page-loader" class="page-loader">
         <video id="loader-video" muted playsinline preload="auto">
-            <source src="Green Hornet Wings.mp4" type="video/mp4">
+            <source src="Green-Hornet-Wings.mp4" type="video/mp4">
         </video>
     </div>
 
@@ -57,21 +63,41 @@
 
     <main>
         <section class="page-hero">
-            <div class="page-hero-grid"></div>
+            <div class="page-grid"></div>
             <div class="page-hero-content container">
                 <div class="hero-eyebrow">Green Hornet Experts</div>
                 <h1 class="page-title">Training <span>Tips & Tricks</span></h1>
                 <p class="hero-desc">Master your PC builds, troubleshooting, and optimization with our expert guides.</p>
+                
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="tips-count">17</div>
+                        <div class="stat-label">Tips & Tricks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Difficulty Levels</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section class="container py-16">
+            <div class="section-header">
+                <h2 class="section-title">Filter by Category</h2>
+            </div>
             <div id="filters" class="filters"></div>
+            
             <div id="tips-grid" class="tips-grid"></div>
 
             <div class="youtube-section">
                 <h2 class="section-title">🎥 Video Tutorials</h2>
-                <p>For detailed walkthroughs and live troubleshooting, check our YouTube channel.</p>
+                <p>For detailed walkthroughs and live troubleshooting, check out our YouTube channel!</p>
                 <div class="hero-actions" style="justify-content: center;">
                     <a href="https://www.youtube.com/@greenhornet8383" class="btn-primary">Subscribe on YouTube</a>
                 </div>
@@ -82,25 +108,22 @@
     <footer class="site-footer">
         <div class="container footer-grid">
             <div class="footer-brand">
-                <div class="footer-logo">Custom Design Systems</div>
-                <p class="footer-tag">Remote Tech Support · Custom PC Builds · Computer Repair</p>
+                <div class="brand">Custom Design Systems</div>
+                <p class="tagline">Remote Tech Support · Custom PC Builds · Computer Repair</p>
             </div>
-            <div class="footer-nav">
+            <nav class="footer-nav">
                 <a href="index.html">Home</a>
                 <a href="training.html">Training</a>
                 <a href="about.html">About</a>
                 <a href="services.html">Services</a>
                 <a href="shop.html">Shop</a>
-            </div>
+            </nav>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <p>&copy; 2026 Custom Design Systems LLC · Created with Perplexity Computer</p>
-            </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 Custom Design Systems LLC · Created with Perplexity Computer</p>
         </div>
     </footer>
 
-    <script src="training-data.js"></script>
     <script>
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40));
@@ -121,12 +144,26 @@
         });
 
         const tipsData = [
-            { id: 1, title: "Thermal Paste Application", category: "Cooling", level: "beginner", description: "Master the art of applying thermal paste for optimal CPU cooling.", content: ["Use a pea-sized amount", "Place in center of CPU", "Cooler pressure distributes it"] },
-            { id: 2, title: "RAM Speed Optimization", category: "Performance", level: "intermediate", description: "Get the most out of your memory with proper XMP settings.", content: ["Enable XMP/DOCP in BIOS", "Check stability with MemTest", "Monitor temperatures"] },
-            { id: 13, title: "Windows Shortcuts", category: "Performance", level: "beginner", description: "Speed up your workflow with essential hotkeys.", content: ["Win+D: Show Desktop", "Win+V: Clipboard", "Win+Shift+S: Screenshot"] }
+            { id: 1, title: "Thermal Paste Application 101", category: "Cooling", level: "beginner", description: "Master the art of applying thermal paste for optimal CPU cooling.", content: ["Use a pea-sized amount, not a large blob!", "Place paste in center of CPU die", "Spread evenly with IHS or plastic spreader", "Avoid excess paste reaching capacitors", "Cooler pressure will distribute paste properly"] },
+            { id: 2, title: "RAM Speed Optimization", category: "Performance", level: "intermediate", description: "Get the most out of your DDR5 memory with proper settings.", content: ["Enable XMP/DOCP in BIOS (one-click overclocking)", "Check stability with MemTest86", "Monitor temperatures (shouldn't exceed 50°C)", "Increase timings if system becomes unstable", "Run benchmarks to verify improvements"] },
+            { id: 3, title: "SSD Health Monitoring", category: "Storage", level: "beginner", description: "Keep your drives healthy and monitor for failures.", content: ["Download CrystalDiskInfo (free, no install)", "Check SMART data monthly", "Watch for Yellow/Red status warnings", "Monitor write errors and bad sectors", "Backup critical data on older drives"] },
+            { id: 4, title: "Safe Overclocking Procedure", category: "Performance", level: "advanced", description: "Push your hardware carefully and within safe limits.", content: ["Increase clock speed by 25-50MHz increments", "Stress test after each adjustment (use Prime95)", "Monitor temperatures with HWInfo64", "Keep voltages under +0.05V from stock", "Document stable settings for future reference"] },
+            { id: 5, title: "Cable Management Tips", category: "Building", level: "beginner", description: "Better airflow through proper cable organization.", content: ["Route cables behind motherboard tray first", "Use velcro straps (reusable, not zip ties)", "Plan cable paths before installation", "Clip excess cable lengths with ties", "Leave room for air to circulate"] },
+            { id: 6, title: "RGB Lighting Control", category: "Customization", level: "beginner", description: "Sync and control your RGB components perfectly.", content: ["Install manufacturer control software", "Update firmware for compatibility", "Create custom profiles for different moods", "Sync multiple brands if supported", "Reduce brightness to save power"] },
+            { id: 7, title: "GPU Memory Timing Tuning", category: "Performance", level: "advanced", description: "Squeeze extra FPS from graphics card memory optimization.", content: ["Use MSI Afterburner for adjustments", "Increase memory clock by 50MHz at a time", "Test with GFXBench or Time Spy", "Revert if artifacts appear (weird glitches)", "Optimal gains: 3-5 FPS improvement"] },
+            { id: 8, title: "Windows SSD Setup", category: "Storage", level: "beginner", description: "Prepare your SSD correctly for Windows installation.", content: ["Disable Intel XMP until Windows is installed", "Use NVMe drive in proper M.2 slot (usually top)", "Install Windows BEFORE enabling XMP", "Update chipset and NVMe drivers immediately", "Enable XMP and stress test for stability"] },
+            { id: 9, title: "Clean PC Maintenance", category: "Maintenance", level: "beginner", description: "Keep your build cool and dust-free long-term.", content: ["Clean intake filters every 1-2 months", "Use compressed air for gentle dust removal", "Check fan speeds monthly", "Replace thermal paste every 2-3 years", "Vacuum near case (not inside) quarterly"] },
+            { id: 10, title: "Power Supply Efficiency", category: "Power", level: "intermediate", description: "Choose and optimize your PSU for maximum efficiency.", content: ["80 Plus Gold is efficient for most builds", "Calculate total wattage (CPU + GPU + peripherals)", "Add 20% headroom for stability", "Load PSU at 50-80% for best efficiency", "Modular PSU = better cable management"] },
+            { id: 11, title: "BIOS Boot Optimization", category: "Performance", level: "intermediate", description: "Cut boot time and improve system responsiveness.", content: ["Disable unused devices in BIOS", "Set SSD as primary boot drive", "Disable USB legacy support", "Enable XMP/DOCP for faster memory", "Boot time typical: 15-20 seconds (Windows)"] },
+            { id: 13, title: "Windows Keyboard Shortcuts", category: "Performance", level: "beginner", description: "Speed up your workflow with essential Windows hotkeys.", content: ["Win + D: Show/hide desktop instantly", "Win + V: Open clipboard history (paste anything!)", "Win + Shift + S: Screenshot tool (crop & save)", "Win + X: Quick menu (shut down, settings, etc)", "Win + I: Open Settings", "Alt + Tab: Switch between open windows", "Ctrl + Shift + Esc: Open Task Manager (bypass login)", "Win + E: Open File Explorer", "Ctrl + Alt + Delete: Security options menu"] },
+            { id: 14, title: "Gaming Keyboard Shortcuts", category: "Customization", level: "beginner", description: "Boost your in-game performance with key combos.", content: ["F11: Full screen toggle (most games)", "Printscreen: Take game screenshot (Steam, Discord)", "Alt + Enter: Toggle borderless window mode", "Ctrl + Alt + F: FPS counter toggle (many games)", "F1-F12: Hotkeys (varies by game, check settings!)", "Pause/Break: Pause game (single-player)", "Ctrl + Shift + I: Discord overlay toggle", "Alt + F4: Force quit app (use carefully!)", "Win + G: Xbox Game Bar (record gameplay)"] },
+            { id: 15, title: "Chrome/Browser Shortcuts", category: "Performance", level: "beginner", description: "Master your browser with these quick combos.", content: ["Ctrl + T: New tab", "Ctrl + N: New window", "Ctrl + W: Close tab", "Ctrl + Shift + T: Reopen closed tab", "Ctrl + L: Jump to address bar", "F12: Developer tools (inspect elements)", "Ctrl + Shift + Delete: Clear browsing data", "Ctrl + +: Zoom in", "Ctrl + -: Zoom out", "Ctrl + 0: Reset zoom to default"] },
+            { id: 16, title: "Discord Keyboard Shortcuts", category: "Customization", level: "beginner", description: "Chat faster with Discord hotkeys.", content: ["Ctrl + K: Quick switch servers/channels", "Ctrl + Shift + U: Mute server notifications", "Ctrl + Alt + Shift + M: Toggle microphone", "Ctrl + Alt + Shift + D: Toggle deafen", "/: Open slash command menu", "Up Arrow: Edit last message", "Shift + Page Up: Scroll up in chat", "Shift + Page Down: Scroll down in chat", "@: Mention someone (type name after)"] },
+            { id: 17, title: "OBS/Streaming Shortcuts", category: "Support", level: "intermediate", description: "Control streaming software without touching mouse.", content: ["F12: Toggle streaming (OBS, varies by setup)", "Ctrl + S: Save scene as new", "Ctrl + Z: Undo last action", "Page Down: Switch to next scene", "Page Up: Switch to previous scene", "F5: Refresh browser sources", "Alt + O: Open OBS menu", "Right-click source: Source context menu", "Spacebar: Mute/unmute audio (varies)"] }
         ];
 
         let currentFilter = 'all';
+
         function renderFilters() {
             const categories = [...new Set(tipsData.map(t => t.category))];
             document.getElementById('filters').innerHTML = `<button class="filter-btn active" onclick="setFilter('all')">All</button>` + 
@@ -143,6 +180,7 @@
                     <div class="tip-content"><ul>${tip.content.map(c => `<li>${c}</li>`).join('')}</ul></div>
                     <div class="tip-footer"><span class="tip-level">${tip.level}</span></div>
                 </div>`).join('');
+            document.getElementById('tips-count').textContent = filtered.length;
         }
 
         function setFilter(cat) {
