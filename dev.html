@@ -648,6 +648,71 @@
     <div class="grid-2" id="cmd-grid">
 
       <div class="cmd-card" onclick="copyCmd(this)">
+        <div class="cmd-title">🛠️ Winget-Graph-VPN/div>
+        <code class="cmd-code"># -----------------------------
+# 1. Ensure script is running as Administrator
+# -----------------------------
+$IsAdmin = ([Security.Principal.WindowsPrincipal] `
+    [Security.Principal.WindowsIdentity]::GetCurrent() `
+).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $IsAdmin) {
+    Write-Host "Restarting PowerShell as Administrator..."
+    Start-Process powershell "-File `"$PSCommandPath`"" -Verb RunAs
+    exit
+}
+
+Write-Host "Running as Administrator ✔️"
+
+# -----------------------------
+# 2. Verify winget exists
+# -----------------------------
+if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+    Write-Host "winget not found. Installing App Installer..."
+    Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile winget.msixbundle
+    Add-AppxPackage winget.msixbundle
+} else {
+    Write-Host "winget is installed ✔️"
+}
+
+# -----------------------------
+# 3. Install Microsoft.Graph module (if missing)
+# -----------------------------
+if (-not (Get-Module -ListAvailable Microsoft.Graph)) {
+    Write-Host "Installing Microsoft Graph module..."
+    Install-Module Microsoft.Graph -Scope AllUsers -Force
+} else {
+    Write-Host "Microsoft.Graph module already installed ✔️"
+}
+
+Import-Module Microsoft.Graph
+
+# -----------------------------
+# 4. Connect to Microsoft Graph
+# -----------------------------
+Write-Host "Connecting to Microsoft Graph..."
+Connect-MgGraph -Scopes "User.Read.All","Directory.Read.All","Device.Read.All"
+
+# -----------------------------
+# 5. VPN Verification (customizable)
+# -----------------------------
+Write-Host "Checking VPN status..."
+
+$vpn = Get-VpnConnection -ErrorAction SilentlyContinue
+
+if ($vpn) {
+    foreach ($v in $vpn) {
+        Write-Host "VPN: $($v.Name) — Status: $($v.ConnectionStatus)"
+    }
+} else {
+    Write-Host "No VPN profiles found."
+}
+
+Write-Host "Setup complete ✔️" -UseBasicParsing).Content</code>
+        <div class="cmd-hint">Run in PowerShell as Admin — downloads all scripts to C:\Green Tools</div>
+      </div>
+       
+      <div class="cmd-card" onclick="copyCmd(this)">
         <div class="cmd-title">🛠️ Green Tools Bootstrap</div>
         <code class="cmd-code">iex (iwr -uri "https://raw.githubusercontent.com/GreenHornet-Dev/green-tools/main/Install-GreenTools-BOOTSTRAP.ps1" -UseBasicParsing).Content</code>
         <div class="cmd-hint">Run in PowerShell as Admin — downloads all scripts to C:\Green Tools</div>
