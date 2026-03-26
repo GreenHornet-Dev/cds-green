@@ -646,8 +646,32 @@
     <h2 class="section-title">One-Liner <span>Installs</span></h2>
     <div class="glow-line"></div>
     <div class="grid-2" id="cmd-grid">
+       
+      <div class="cmd-card" onclick="copyCmd(this)">
+        <div class="cmd-title">🛠️ Green Tools Bootstrap</div>
+        <code class="cmd-code">iex (iwr -uri "https://raw.githubusercontent.com/GreenHornet-Dev/green-tools/main/Install-GreenTools-BOOTSTRAP.ps1" -UseBasicParsing).Content</code>
+        <div class="cmd-hint">Run in PowerShell as Admin — downloads all scripts to C:\Green Tools</div>
+      </div>
 
       <div class="cmd-card" onclick="copyCmd(this)">
+        <div class="cmd-title">🍎 LsAgent Mac Force Rescan</div>
+        <code class="cmd-code">git clone https://github.com/GreenHornet-Dev/lsagent-mac.git && cd lsagent-mac && chmod +x force-rescan-lsagent.sh && sudo ./force-rescan-lsagent.sh</code>
+        <div class="cmd-hint">Run in Terminal — clones and executes the Lansweeper rescan</div>
+      </div>
+
+      <div class="cmd-card" onclick="copyCmd(this)">
+        <div class="cmd-title">📦 WinGet Update All</div>
+        <code class="cmd-code">winget upgrade --all --accept-source-agreements --accept-package-agreements</code>
+        <div class="cmd-hint">PowerShell — updates all installed WinGet packages</div>
+      </div>
+
+      <div class="cmd-card" onclick="copyCmd(this)">
+        <div class="cmd-title">🔄 Windows Update via PowerShell</div>
+        <code class="cmd-code">Install-Module PSWindowsUpdate -Force; Import-Module PSWindowsUpdate; Get-WindowsUpdate -Install -AcceptAll -AutoReboot</code>
+        <div class="cmd-hint">PowerShell as Admin — installs all pending Windows updates</div>
+      </div>
+
+<div class="cmd-card" onclick="copyCmd(this)">
         <div class="cmd-title">🛠️ Winget-Graph-VPN</div>
         <code class="cmd-code"># -----------------------------
 # 1. Ensure script is running as Administrator
@@ -711,31 +735,7 @@ if ($vpn) {
 Write-Host "Setup complete ✔️" -UseBasicParsing).Content</code>
         <div class="cmd-hint">Run in PowerShell as Admin — downloads all scripts to C:\Green Tools</div>
       </div>
-       
-      <div class="cmd-card" onclick="copyCmd(this)">
-        <div class="cmd-title">🛠️ Green Tools Bootstrap</div>
-        <code class="cmd-code">iex (iwr -uri "https://raw.githubusercontent.com/GreenHornet-Dev/green-tools/main/Install-GreenTools-BOOTSTRAP.ps1" -UseBasicParsing).Content</code>
-        <div class="cmd-hint">Run in PowerShell as Admin — downloads all scripts to C:\Green Tools</div>
-      </div>
-
-      <div class="cmd-card" onclick="copyCmd(this)">
-        <div class="cmd-title">🍎 LsAgent Mac Force Rescan</div>
-        <code class="cmd-code">git clone https://github.com/GreenHornet-Dev/lsagent-mac.git && cd lsagent-mac && chmod +x force-rescan-lsagent.sh && sudo ./force-rescan-lsagent.sh</code>
-        <div class="cmd-hint">Run in Terminal — clones and executes the Lansweeper rescan</div>
-      </div>
-
-      <div class="cmd-card" onclick="copyCmd(this)">
-        <div class="cmd-title">📦 WinGet Update All</div>
-        <code class="cmd-code">winget upgrade --all --accept-source-agreements --accept-package-agreements</code>
-        <div class="cmd-hint">PowerShell — updates all installed WinGet packages</div>
-      </div>
-
-      <div class="cmd-card" onclick="copyCmd(this)">
-        <div class="cmd-title">🔄 Windows Update via PowerShell</div>
-        <code class="cmd-code">Install-Module PSWindowsUpdate -Force; Import-Module PSWindowsUpdate; Get-WindowsUpdate -Install -AcceptAll -AutoReboot</code>
-        <div class="cmd-hint">PowerShell as Admin — installs all pending Windows updates</div>
-      </div>
-
+             
     </div>
   </div>
 </section>
